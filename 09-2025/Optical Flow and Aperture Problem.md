@@ -1,5 +1,13 @@
-## Exercise 3 (8 Points)
-#### Describe a method for estimating optical flow in image sequences. What is the aperture problem, and how does it affect motion estimation? In which
+---
+tags:
+   - computer-vision
+   - optical-flow
+   - aperture-problem
+   - motion-estimation
+   - exam-prep
+---
+# Exercise 3. (8 points)
+#### Describe a method for estimating optical flow in image sequences. What is the aperture problem, and how does it affect motion estimation?
 
 ---
 ## Optical Flow Estimation
@@ -12,7 +20,7 @@ describing how that point moved from frame $t$ to frame $t+1$.
 
 ---
 
-### Brightness Constancy Assumption
+### Brightness constancy assumption
 
 The core assumption: a pixel keeps the same intensity as it moves:
 
@@ -20,7 +28,7 @@ $$I(x, y, t) = I(x+u, y+v, t+1)$$
 
 ---
 
-### The Optical Flow Constraint Equation
+### The optical flow constraint equation
 
 Taking a first-order Taylor expansion and assuming small motion:
 
@@ -35,7 +43,7 @@ where:
 
 ---
 
-### Lucas-Kanade: Solving the Ambiguity
+### Lucas-Kanade: Solving the ambiguity
 
 Assume flow $(u, v)$ is constant within a small local window (e.g. 5x5).
 This gives one equation per pixel in the window, all sharing the same unknowns,
@@ -53,7 +61,7 @@ to track.
 
 ---
 
-### The Aperture Problem
+### The aperture problem
 
 #### What it is
 
@@ -77,7 +85,7 @@ vanishes from the equation entirely.
 
 ---
 
-### Which Direction is Ambiguous?
+### Which direction is ambiguous?
 
 Optical flow **cannot be reliably estimated along the direction tangent to
 the edge**, i.e. parallel to the isophote (the line of constant intensity).
@@ -92,7 +100,7 @@ be recovered.
 
 ---
 
-### Exam-Ready Answer
+## Exam-ready answer
 
 > Optical flow estimates the apparent per-pixel motion $(u,v)$ between
 > consecutive frames using the brightness constancy assumption. Linearising

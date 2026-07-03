@@ -1,11 +1,16 @@
-
-### Exercise 2. (8 points)
+---
+tags:
+   - computer-vision
+   - feature-matching
+   - ransac
+   - homography
+   - exam-prep
+---
+# Exercise 2. (8 points)
 
 #### Explain feature matching and how the RANSAC (Random Sample Consensus) algorithm can be used in conjunction with feature matching to improve the accuracy of homography estimation between two images.
 
----
----
-#### Feature Matching — Simple Theory
+## Feature Matching
 
 After detecting keypoints (e.g. with SIFT), each one has a 128-dimensional descriptor vector. Matching means finding, for each keypoint in image 1, the keypoint in image 2 whose descriptor is most similar, usually by nearest-neighbour search with Euclidean distance.
 
@@ -13,9 +18,7 @@ The problem is that many matches are wrong. These are **outliers**. Good matches
 
 Even after this, many outliers can remain. This is where RANSAC comes in.
 
----
----
-#### What is a Homography?
+## What is a Homography?
 
 A homography is a 3×3 matrix \(H\) that maps points from one image to corresponding points in another, assuming the scene is planar or the camera center stays fixed:
 
@@ -25,16 +28,13 @@ $$
 
 To compute \(H\), at least 4 point correspondences are needed. The challenge is deciding which noisy matches to trust.
 
----
----
-#### RANSAC
+## RANSAC
 
-##### Core idea
+### Core idea
 
 Instead of using all matches, RANSAC repeatedly selects a small random subset, fits a model, and checks how many other points agree with it.
 
----
-##### Steps
+### Steps
 
 1. Randomly sample the minimum number of matches needed.
    - Pick 4 random matches.
@@ -58,7 +58,7 @@ $$
    - The iteration with the largest consensus set wins.
    - Recompute \(H\) using all inliers from that best iteration for a more accurate final estimate.
 ---
-##### Example
+### Example
 
 - Iteration 1: sample 4 → compute \(H\) → 12 inliers
 - Iteration 2: sample 4 → compute \(H\) → 47 inliers ← best
@@ -67,15 +67,13 @@ $$
 Final \(H\): recomputed using all 47 inliers.
 
 ---
-##### Why It Works
+### Why it works
 
 A homography computed from 4 correct matches will be consistent with the other correct matches. A homography computed from even one wrong match will usually fit poorly, so very few other matches will agree with it.
 
 Across many iterations, the correct model accumulates a large consensus set while wrong models do not. RANSAC uses this difference to separate inliers from outliers without knowing in advance which matches are correct.
 
----
----
-#### Exam-Ready Answer
+## Exam-ready answer
 
 >Feature matching assigns each detected keypoint a descriptor, such as SIFT's 128-dimensional vector, and finds corresponding keypoints across two images by nearest-neighbour search in descriptor space. Since many matches are wrong, RANSAC is used to robustly estimate the homography despite outliers.
 

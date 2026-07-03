@@ -1,4 +1,13 @@
-git# Exercise 4. (8 points)
+---
+tags:
+    - computer-vision
+    - epipolar-geometry
+    - fundamental-matrix
+    - essential-matrix
+    - calibration
+    - exam-prep
+---
+# Exercise 4. (8 points)
 #### a) What is the relationship between the fundamental matrix F and the essential matrix E? Explain how one can be derived from the other.
 #### b) Describe how the fundamental matrix F can be estimated from corresponding points in two images. What method(s) are commonly used for this computation?
 
@@ -11,12 +20,12 @@ git# Exercise 4. (8 points)
 Both matrices encode the epipolar geometry between two cameras, but they
 differ in what they assume about the cameras:
 
-| | Fundamental Matrix $F$ | Essential Matrix $E$ |
-|---|---|---|
+|                  | Fundamental Matrix $F$                   | Essential Matrix $E$            |
+| ---------------- | ---------------------------------------- | ------------------------------- |
 | Camera knowledge | Works with **any** camera (uncalibrated) | Requires **calibrated** cameras |
-| Coordinates | Pixel (image) coordinates | Normalised camera coordinates |
-| DOF | 7 | 5 |
-| Rank | 2 | 2 |
+| Coordinates      | Pixel (image) coordinates                | Normalised camera coordinates   |
+| DOF              | 7                                        | 5                               |
+| Rank             | 2                                        | 2                               |
 
 The fundamental matrix works in raw pixel space. The essential matrix works
 in a normalised coordinate system where the camera intrinsics have been

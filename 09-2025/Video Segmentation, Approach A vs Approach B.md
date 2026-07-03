@@ -1,4 +1,12 @@
-## Exercise 5 (8 Points) 
+---
+tags:
+  - computer-vision
+  - video-segmentation
+  - clustering
+  - embeddings
+  - exam-prep
+---
+# Exercise 5. (8 points)
 
 #### Reasoning question: Consider two alternative approaches for segmenting a video into visually similar segments:
 
@@ -8,9 +16,7 @@ distance as a similarity measure, followed by k-means clustering.
 
 Compare the two approaches in terms of robustness, computational efficiency and scalability. Discuss in which scenarios Approach A might outperform Approach B, and vice versa. How the choice of features could affect the quality of segmentation?
 
----
----
-### Quick Overview
+## Quick Overview
 
 |              | Approach A                 | Approach B                           |
 | ------------ | -------------------------- | ------------------------------------ |
@@ -22,7 +28,7 @@ Compare the two approaches in terms of robustness, computational efficiency and 
 
 ---
 
-### Approach A — Histograms + Euclidean + K-means
+## Approach A: Histograms + Euclidean + K-means
 
 Represents each frame as a distribution of pixel intensities. Two frames are similar if their histograms are close in Euclidean distance.
 
@@ -39,7 +45,7 @@ Represents each frame as a distribution of pixel intensities. Two frames are sim
 
 ---
 
-### Approach B — CNN Embeddings + Cosine + Flexible Clustering
+## Approach B: CNN embeddings + cosine + flexible clustering
 
 Passes each frame through a pretrained CNN (e.g. ResNet) to get a high-dimensional feature vector that captures semantic content, not just raw color.
 
@@ -55,25 +61,25 @@ Passes each frame through a pretrained CNN (e.g. ResNet) to get a high-dimension
 
 ---
 
-### Robustness
+## Robustness
 
 Approach B is significantly more robust. CNN embeddings are trained on millions of images and learn invariances to illumination, scale, and viewpoint. Approach A breaks under any of these changes since a simple brightness shift alters every histogram bin.
 
 ---
 
-### Computational Efficiency
+## Computational Efficiency
 
 Approach A is much faster. Histogram computation is $O(WH)$ per frame and k-means converges quickly. Approach B requires a CNN forward pass per frame, which is orders of magnitude slower without a GPU, and the resulting high-dimensional embeddings also make clustering more expensive.
 
 ---
 
-### Scalability
+## Scalability
 
 For very long videos (thousands of frames), Approach A scales better due to low per-frame cost and small feature size. Approach B can be made scalable with batched GPU inference, but still has higher memory and compute requirements. High-dimensional embeddings also make clustering harder as dimensionality increases (curse of dimensionality), often requiring dimensionality reduction (e.g. PCA) as a preprocessing step.
 
 ---
 
-### When Approach A Outperforms Approach B
+## When Approach A outperforms Approach B
 
 - **Controlled, uniform conditions:** if lighting and camera are fixed (e.g. a static surveillance camera), histograms are sufficient and fast
 - **Low-resource environments:** no GPU available, real-time processing required
@@ -82,7 +88,7 @@ For very long videos (thousands of frames), Approach A scales better due to low 
 
 ---
 
-### When Approach B Outperforms Approach A
+## When Approach B outperforms Approach A
 
 - **Semantic segmentation:** grouping frames by content (scenes with the same character, same location) rather than just color
 - **Variable lighting or camera motion:** CNN embeddings are robust to these; histograms are not
@@ -91,7 +97,7 @@ For very long videos (thousands of frames), Approach A scales better due to low 
 
 ---
 
-### How Feature Choice Affects Segmentation Quality
+## How feature choice affects segmentation quality
 
 The choice of features directly determines what "similar" means to the algorithm:
 
@@ -102,7 +108,7 @@ A poor feature space means that the clustering algorithm, no matter how sophisti
 
 ---
 
-### Exam-Ready Answer
+## Exam-ready answer
 
 > Approach A uses pixel histograms and Euclidean distance as a fast, interpretable baseline. It is computationally cheap and scales well, but is fragile to lighting changes, camera motion, and any variation that alters the color distribution without changing the semantic content. K-means further limits it by requiring $k$ in advance and assuming spherical clusters.
 

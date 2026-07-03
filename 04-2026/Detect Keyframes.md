@@ -1,17 +1,22 @@
-
+---
+tags:
+    - computer-vision
+    - video-analysis
+    - keyframes
+    - feature-extraction
+    - exam-prep
+---
 # Exercise 4. (8 points)
-#### Propose a method to detect keyframes in a video sequence using traditional (non-deep learning) techniques. Explain the features you would extract, how you would measure frame importance or uniqueness, and the criteria for selecting keyframes. Justify each step in your approach. A keyframe in this case could be: a frame that is visually different from surrounding frames (e.g., scene changes, new objects) or a frame where meaningful action begins (e.g., explosion, expression change, speaker switch).
 
----
----
+#### Propose a method to detect keyframes in a video sequence using traditional (non-deep learning) techniques. Explain the features you would extract, how you would measure frame importance or uniqueness, and the criteria for selecting keyframes. Justify each step in your approach. A keyframe in this case could be a frame that is visually different from surrounding frames (e.g. scene changes, new objects) or a frame where meaningful action begins (e.g. explosion, expression change, speaker switch).
 
-### Core Idea
+## Core Idea
 
 A keyframe is a frame that is **visually distinct** from its neighbours. The strategy is to extract features from each frame, measure how much each frame differs from the previous one, and select frames where that difference is large or locally maximal.
 
 ---
 
-### Step 1: Feature Extraction
+## Step 1: Feature Extraction
 
 Three complementary features capture different types of visual change:
 
@@ -38,7 +43,7 @@ $$F_t = \frac{1}{WH}\sum_{x,y} \sqrt{u(x,y)^2 + v(x,y)^2}$$
 
 ---
 
-### Step 2 — Measuring Frame Importance
+## Step 2: Measuring Frame Importance
 
 Combine the three features into a single **frame difference score** $D_t$ comparing frame $t$ to frame $t-1$:
 
@@ -50,7 +55,7 @@ where $d_{\text{hist}}$ is a histogram distance (e.g. chi-squared or L1), and $\
 
 ---
 
-### Step 3 — Keyframe Selection
+## Step 3: Keyframe Selection
 
 #### Criterion 1: Global Threshold
 Mark frame $t$ as a keyframe if:
@@ -73,7 +78,7 @@ Enforce a minimum gap of $k$ frames between any two selected keyframes.
 
 ---
 
-### Full Pipeline Summary
+## Full Pipeline Summary
 
 ```text
 For each frame t:
@@ -89,7 +94,7 @@ After all frames:
 
 ---
 
-### Exam-Ready Answer
+## Exam-ready answer
 
 To detect keyframes without deep learning, I propose a multi-feature frame difference pipeline. For each frame I extract three features: an HSV color histogram (sensitive to scene cuts and lighting changes), edge density via Sobel (sensitive to structural changes and new objects), and mean optical flow magnitude via Lucas-Kanade (sensitive to motion onset and action). These are combined into a weighted frame difference score $D_t$ comparing each frame to the previous one.
 
