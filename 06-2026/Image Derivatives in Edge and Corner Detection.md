@@ -181,6 +181,8 @@ derivatives.
 > than first-order methods. The Hessian matrix of second-order derivatives
 > captures intensity curvature in all directions and is used to detect
 > corners and blobs: large curvature in both directions signals a corner.
+
+>The Laplacian of Gaussian (LoG) filter is mathematically equivalent to the **second derivative of a Gaussian function**.
 >
 > Derivative operators are sensitive to noise because differentiation
 > amplifies high-frequency content, and noise lives at high frequencies.

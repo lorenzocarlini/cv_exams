@@ -97,6 +97,13 @@ consistent with the true camera geometry, so they will fail the epipolar
 constraint and be rejected as outliers. Only matches that satisfy
 $p'^T F p \approx 0$ are kept.
 
+
+**The Fundamental Matrix ($F$) handles 3D depth**
+
+- **Strength:** It models epipolar geometry for a general 3D scene with varying depth (e.g., viewing a building from an angle where you see the front facade, a side wall, and protruding balconies).
+    
+- **Weakness:** It mathematically fails (degenerates) if the visible scene is perfectly flat, or if the camera simply rotates on its axis without translating.
+
 #### Step 2: Homography Verification
 
 Buildings contain many planar surfaces such as walls and facades. A
@@ -105,6 +112,12 @@ homography $H$ can be estimated for each dominant plane using RANSAC with
 more likely to be correct, and this also helps separate matches from
 different planes that would otherwise confuse the reconstruction.
 
+
+**The Homography ($H$) handles flat planes**
+
+- **Strength:** It perfectly models the transformation of a single, flat 2D surface (e.g., looking straight at a brick wall or a flat row of windows) or pure camera rotation.
+    
+- **Weakness:** It cannot account for 3D depth, perspective changes of complex objects, or parallax.
 ---
 
 #### Why Repeated Patterns Are Especially Hard
