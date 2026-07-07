@@ -179,10 +179,7 @@ full Gaussian pyramid.
 > describe intensity variation along the principal directions: both large
 > means corner, one large means edge, both small means flat region.
 >
-> To avoid computing eigenvalues, the corner response $R = \det(M) -
-> k\,\text{trace}(M)^2$ is used. Pixels with $R \gg 0$ are corners, $R < 0$
-> are edges, $R \approx 0$ are flat. Non-maximum suppression is applied to
-> keep only the strongest local peaks.
+> To avoid computing eigenvalues, the corner response $R = \det(M) - k\,\text{trace}(M)^2$ is used. Pixels with $R \gg 0$ are corners, $R < 0$  are edges, $R \approx 0$ are flat. Non-maximum suppression is applied to  keep only the strongest local peaks.
 >
 > Harris is fully robust to rotation because eigenvalues are invariant under
 > similarity transformations. It is fully robust to additive intensity shifts
